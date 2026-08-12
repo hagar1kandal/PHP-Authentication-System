@@ -171,19 +171,3 @@ include "layout/header.php";
 include "layout/footer.php";
 ?>
 
-<!-- <div style="background-color: #0c111c;">
-        <div class="container text-white py-5">
-            <div class="row align-items-center g-5">
-                <div class="col-md-6">
-                    <h1 class="mb5 display-2"><strong> eat and entertain</strong></h1>
-                    <p>
-                        Lorem ipsum, dolor sit amet consectetur adipisicing elit. Enim reprehenderit nobis aliquam molestiae non,
-                         aut fugit provident doloribus dolorem accusamus officiis accusantium natus quae at harum, debitis quos eum? Dicta!
-                    </p>
-                </div>
-                <div class="col-md-6 text-center">
-                    <img src="images\sonny-mauricio-yhc4pSbl01A-unsplash.jpg" class="img-fluid w-50" alt="hero">
-                </div>
-            </div>
-        </div>
-    </div> -->
