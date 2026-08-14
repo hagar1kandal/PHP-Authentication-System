@@ -2,7 +2,7 @@
 
 include "layout/session.php";
 
-if ($_SESSION['role'] != "admin") {
+if ($_SESSION['role'] !== "admin") {
     header("Location:index.php");
     exit;
 }
@@ -31,7 +31,7 @@ $confirm_password_error = "";
 
 $error = false;
 
-if ($_SERVER["REQUEST_METHOD"] == 'POST') {
+if ($_SERVER["REQUEST_METHOD"] === 'POST') {
 
     $user_token = $_POST['csrf_token'];
     $session_token = $_SESSION['csrf_token'];
@@ -90,7 +90,7 @@ if ($_SERVER["REQUEST_METHOD"] == 'POST') {
     } elseif (strlen($password) < 6) {
         $password_error = "password should be not less than 6 chars";
         $error = true;
-    } elseif ($confirm_password != $password) {
+    } elseif ($confirm_password !== $password) {
         $confirm_password_error = "password doesn't match";
         $error = true;
     }

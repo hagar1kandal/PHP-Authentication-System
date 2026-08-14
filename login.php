@@ -3,13 +3,13 @@ include "layout/session.php";
 
 
 //if redirectid to this page and this condition exists
-if (empty($_SESSION['csrf_token'])) {
+if (isset($_SESSION['email'])) {
     header("Location:index.php");
     exit;
 }
 
 //************CSRF TOKENS TO PREVENT CSRF ATTAKS *******************//
-if ($_SESSION['csrf_token']) {
+if (empty($_SESSION['csrf_token'])) {
     $_SESSION['csrf_token'] = bin2hex(random_bytes(32));
 }
 
@@ -17,7 +17,7 @@ if ($_SESSION['csrf_token']) {
 $email = "";
 $error = "";
 
-if ($_SERVER["REQUEST_METHOD"] == "POST") {
+if ($_SERVER["REQUEST_METHOD"] === "POST") {
 
     $user_token = $_POST['csrf_token'];
     $session_token = $_SESSION['csrf_token'];
@@ -45,7 +45,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
 
             if (password_verify($password, $row['password'])) {
-                $_SESSION["id"] = $row['id'];
+                $_SESSION["id"] = (int) $row['id'];
                 $_SESSION["firstname"] = $row['firstname'];
                 $_SESSION["lastname"] = $row['lastname'];
                 $_SESSION["email"] = $row['email'];

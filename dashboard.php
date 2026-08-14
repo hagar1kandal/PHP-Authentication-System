@@ -1,7 +1,7 @@
 <?php
 include "layout/session.php";
 
-if ($_SESSION['role'] != "admin") {
+if ($_SESSION['role'] !== "admin") {
   header("Location:index.php");
   exit;
 }
@@ -29,7 +29,7 @@ include "layout/header.php";
         <th scope="col">email</th>
         <th scope="col">address</th>
         <th colspan="2" scope="col">action</th>
-        
+
       </tr>
     </thead>
     <tbody>
@@ -39,13 +39,13 @@ include "layout/header.php";
       ?>
           <tr>
 
-            <td><?=$row['id']; ?></td>
-            <td><?=$row['firstname']; ?></td>
-            <td><?=$row['lastname']; ?></td>
-            <td><?=$row['email']; ?></td>
-            <td><?=$row['address']; ?></td>
-            <td><a  class="delete-btn" href="delete_user.php?id=<?=$row['id'];?>"><i class="bi bi-trash-fill"></i></a></td>
-            <td><a class="edit-btn" href="profile.php?id=<?=$row['id'];?>"><i class="bi bi-pencil-square"></i></a></td>
+            <td><?= $row['id']; ?></td>
+            <td><?= $row['firstname']; ?></td>
+            <td><?= $row['lastname']; ?></td>
+            <td><?= $row['email']; ?></td>
+            <td><?= $row['address']; ?></td>
+            <td><a class="delete-btn" href="delete_user.php?id=<?= $row['id']; ?>"><i class="bi bi-trash-fill"></i></a></td>
+            <td><a class="edit-btn" href="profile.php?id=<?= $row['id']; ?>"><i class="bi bi-pencil-square"></i></a></td>
           </tr>
       <?php
         }

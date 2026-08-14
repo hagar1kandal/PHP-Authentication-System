@@ -1,32 +1,11 @@
   <!-- **************** FOOTER **************** -->
 
-    <footer>
-
-        <div>
-            © 2024 Auth PHP Pro. Securely developed in Egypt.
-        </div>
+  <footer class="text-center py-3 ">
+      <small>PHP Authentication System</small>
+  </footer>
 
 
-        <div class="footer-links">
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+  </body>
 
-            <a href="#">
-                Live Demo
-            </a>
-
-            <a href="#">
-                Buy Now
-            </a>
-
-        </div>
-
-    </footer>
-
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
-</body>
-
-</html>
- 
- 
- 
- 
- 
+  </html>

@@ -89,28 +89,43 @@ include "layout/header.php";
     </div>
 
     <div class="feature">
+        <i class="bi bi-shield-check"></i>
+        Comprehensive Form Validation
+    </div>
+
+    <div class="feature">
         <i class="bi bi-lock-fill"></i>
         Secure Password Hashing (Bcrypt)
     </div>
 
     <div class="feature">
+        <i class="bi bi-shield-check"></i>
+        Password Confirmation Validation
+    </div>
+
+    <div class="feature">
         <i class="bi bi-lock-fill"></i>
-         CSRF Protection
+        CSRF Protection
     </div>
 
     <div class="feature">
         <i class="bi bi-shield-check"></i>
-        Current Password Verification on Profile Update
+        Current Password Verification for Password Changes
     </div>
 
     <div class="feature">
         <i class="bi bi-bar-chart-fill"></i>
-        Admin Role-Based Dashboard
+        Role-Based Access Control
+    </div>
+
+    <div class="feature">
+        <i class="bi bi-bar-chart-fill"></i>
+        Admin User Management (Admin Dashboard)
     </div>
 
     <div class="feature">
         <i class="bi bi-person-fill"></i>
-        User Profile Cards
+        User Profile Management
     </div>
 
     <div class="feature">
@@ -152,6 +167,14 @@ include "layout/header.php";
 
         </div>
 
+        <div class="technology">
+
+            <span class="fw-bold">
+                PDO
+            </span>
+
+        </div>
+
 
         <div class="technology">
 
@@ -170,4 +193,3 @@ include "layout/header.php";
 <?php
 include "layout/footer.php";
 ?>
-

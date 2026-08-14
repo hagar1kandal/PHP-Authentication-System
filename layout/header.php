@@ -90,7 +90,7 @@ require_once "layout/session.php";
             color: white;
         }
 
-        
+
         .nav-buttons {
             display: flex;
             gap: 10px;
@@ -498,7 +498,7 @@ require_once "layout/session.php";
 
                             <ul class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
 
-                                <?php if (isset($_SESSION["role"]) && $_SESSION["role"] == "admin") { ?>
+                                <?php if (isset($_SESSION["role"]) && $_SESSION["role"] === "admin") { ?>
                                     <li><a class="dropdown-item " href="dashboard.php">
                                             dash board
                                         </a>

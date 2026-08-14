@@ -14,8 +14,8 @@ include "connection/config.php";
 $databaseconn = getconnectiontodb();
 
 
-if ($_SESSION['role'] == "admin" && isset($_GET['id'])) {
-    $user_id = $_GET['id'];
+if ($_SESSION['role'] === "admin" && isset($_GET['id'])) {
+    $user_id = (int) $_GET['id'];
     $sql = "SELECT* FROM users WHERE id= ?";
     $stmt =  $databaseconn->prepare($sql);
     $stmt->execute([$user_id]);
@@ -25,7 +25,7 @@ if ($_SESSION['role'] == "admin" && isset($_GET['id'])) {
     $user_data = $_SESSION;
 }
 //if a client tries to break through other user data
-if ($_SESSION['role'] !== "admin" && $user_id != $_SESSION['id']) {
+if ($_SESSION['role'] !== "admin" && $user_id !==  $_SESSION['id']) {
 
     header("Location:profile.php");
     exit;
@@ -39,7 +39,7 @@ $firstname_error = $lastname_error = $email_error = $phone_error = $current_pass
 $error = false;
 
 
-if ($_SERVER['REQUEST_METHOD'] == "POST") {
+if ($_SERVER['REQUEST_METHOD'] === "POST") {
 
     $user_token = $_POST['csrf_token'];
     $session_token = $_SESSION['csrf_token'];
@@ -94,11 +94,11 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
 
     //على الاقل واحده بس تبقا مليانه ندخل فى سيناريو الفاليديشن و$change_password=true 
     $change_password = !empty($current_password) || !empty($new_password) || !empty($confirm_new_password);
-    $id = $user_id;  //$user_id = $session['id'] or $get['id']
+    $id = $user_id;  //$user_id =  $session['id'] or  $get['id']
     if ($change_password) {
 
         ////////////////CURRENT PASSWORD ///////////
-        if ($id == $_SESSION['id']) {  //type current password of client in its session or of the admin's in its session 
+        if ($id === $_SESSION['id']) {  //type current password of client in its session or of the admin's in its session 
 
             if (empty($current_password)) {
                 $current_password_error = "current password should be entered";
@@ -171,14 +171,14 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
             ]);
         }
 
-        if ($user_id == $_SESSION['id']) {
+        if ($user_id === $_SESSION['id']) {
             $_SESSION["firstname"] = $firstname;
             $_SESSION["lastname"] = $lastname;
             $_SESSION["email"] = $email;
             $_SESSION["phone"] = $phone;
             $_SESSION["address"] = $address;
         }
-        $redirect_url = ($_SESSION['role'] === 'admin' && $id != $_SESSION['id']) ? "profile.php?id=" . $id : "profile.php";
+        $redirect_url = ($_SESSION['role'] === 'admin' && $id !== $_SESSION['id']) ? "profile.php?id=" . $id : "profile.php";
         header("Location: " . $redirect_url);
         exit;
     }
