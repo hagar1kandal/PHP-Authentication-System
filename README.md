@@ -64,11 +64,11 @@ The project demonstrates authentication, authorization, CRUD operations, session
 The application includes separate Admin and User demo accounts for testing the available features.
 
 ### Admin Account
-- Email: `mo@gmail.com`
+- Email: `admin1@gmail.com`
 - Password: `123456123456mo`
 
 ### User Account
-- Email: `rem@gmail.com`
+- Email: `moon@gmail.com`
 - Password: `1515lklk1515lklk`
 
 > **Note:** The demo credentials provided above are for testing purposes only. Please do not reuse these passwords for real accounts or other services.
