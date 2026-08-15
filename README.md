@@ -112,7 +112,7 @@ PHP-Authentication-System/
 
 The application uses MySQL for storing user accounts and application data.
 
-User data is stored locally in the MySQL database and is not included in this public repository.
+A sample database file is included in the repository with demo data for testing purposes. No real user data is included.
 
 ## Purpose
 
