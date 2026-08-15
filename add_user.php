@@ -198,11 +198,19 @@ include "layout/header.php";
                         </div>
 
 
-                        <button type="submit"
-                            name="register"
-                            class="btn btn-primary w-100 rounded-3">
-                            add
-                        </button>
+                        <div class="row mb-3">
+                            <div class="col d-grid">
+                                <button type="submit"
+                                    name="add"
+                                    class="btn btn-primary w-100 rounded-3">
+                                    add user
+                                </button>
+                            </div>
+                            <div class="col d-grid">
+                                <a href="dashboard.php" class="btn btn-outline-primary w-100 rounded-3">cancel</a>
+                            </div>
+
+                        </div>
 
 
                     </form>

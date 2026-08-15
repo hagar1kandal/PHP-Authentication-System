@@ -58,12 +58,12 @@ include "layout/header.php";
 
                 <div>
                     <span class="label">Admin:</span>
-                    mo@gmail.com / pass: 123456123456mo
+                    admin1@gmail.com / pass: 123456123456mo
                 </div>
 
                 <div>
                     <span class="label">User:</span>
-                    rem@gmail.com / pass: 1515lklk1515lklk
+                    moon@gmail.com / pass: 1515lklk1515lklk
                 </div>
 
             </div>

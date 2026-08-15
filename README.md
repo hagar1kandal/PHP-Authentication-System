@@ -55,6 +55,10 @@ The project demonstrates authentication, authorization, CRUD operations, session
 * **HTML5**
 * **CSS3**
 
+## Live Demo
+
+[Try the Live Demo](https://phpauth.wuaze.com)
+
 ## Demo Access
 
 The application includes separate Admin and User demo accounts for testing the available features.

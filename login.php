@@ -105,7 +105,7 @@ include "layout/header.php";
                         <div class="row mb-3">
                             <div class="col d-grid">
                                 <button type="submit"
-                                    name="register"
+                                    name="login"
                                     class="btn btn-primary w-100 rounded-3">
                                     login
                                 </button>

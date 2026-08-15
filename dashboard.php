@@ -10,7 +10,7 @@ include "connection/config.php";
 
 $dbconnection = getconnectiontodb();
 
-$sql = "SELECT* FROM users";
+$sql = "SELECT* FROM users ORDER BY id DESC";
 $stmt =  $dbconnection->prepare($sql);
 $stmt->execute();
 
