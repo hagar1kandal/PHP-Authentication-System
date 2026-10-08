@@ -2,7 +2,7 @@
 <?php
 include "layout/session.php";
 
-if ($_SESSION['role'] !== "admin") {
+if ($_SESSION['role'] !== 1) {
     header("Location:index.php");
 }
 

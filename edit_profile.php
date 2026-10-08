@@ -14,8 +14,8 @@ include "connection/config.php";
 $databaseconn = getconnectiontodb();
 
 
-if ($_SESSION['role'] === "admin" && isset($_GET['id'])) {
-    $user_id = (int) $_GET['id'];
+if ($_SESSION['role'] === 1 && isset($_GET['id'])) {
+    $user_id = (int) $_GET['id']; // (int)= bec in url its string 
     $sql = "SELECT* FROM users WHERE id= ?";
     $stmt =  $databaseconn->prepare($sql);
     $stmt->execute([$user_id]);
@@ -25,14 +25,14 @@ if ($_SESSION['role'] === "admin" && isset($_GET['id'])) {
     $user_data = $_SESSION;
 }
 //if a client tries to break through other user data
-if ($_SESSION['role'] !== "admin" && $user_id !==  $_SESSION['id']) {
+if ($_SESSION['role'] !== 1 && $user_id !==  $_SESSION['id']) {
 
     header("Location:profile.php");
     exit;
 }
 
 
-$firstname = $lastname = $email = $phone = $address = $current_password = $new_password = $confirm_new_password =  "";
+$firstname = $lastname = $email = $phone = $address = $role = $current_password = $new_password = $confirm_new_password =  "";
 
 $firstname_error = $lastname_error = $email_error = $phone_error = $current_password_error = $new_password_error = $confirm_new_password_error =  "";
 
@@ -50,11 +50,12 @@ if ($_SERVER['REQUEST_METHOD'] === "POST") {
 
     //***************************UPDATE USER DATA*****************************//
 
-    $firstname = trim($_POST['firstname']);
-    $lastname = trim($_POST['lastname']);
-    $email = trim($_POST['email']);
-    $phone =  trim($_POST['phone']);
-    $address = trim($_POST['address']);
+    $firstname = trim($_POST['firstname'] ?? "");
+    $lastname = trim($_POST['lastname'] ?? "");
+    $email = trim($_POST['email'] ?? "");
+    $phone =  trim($_POST['phone'] ?? "");
+    $address = trim($_POST['address'] ?? "");
+    $role = isset($_POST['role']) && $_POST['role'] == "1" ? 1 : 0;
 
 
     ////////////////////FIRST NAME VALIDATION///////////////////////////////
@@ -73,13 +74,14 @@ if ($_SERVER['REQUEST_METHOD'] === "POST") {
 
     ////////////////////EMAIL VALIDATION//////////////////////////////////
     if (empty($email)) {
-        $email_error = "Email shuld be entered";
+        $email_error = "Email should be entered";
         $error = true;
     } elseif (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
         $email_error = "email should be in the right format";
         $error = true;
     }
 
+    ////////////////////PHONE VALIDATION//////////////////////////////////
     if (!preg_match("/^[0-9]{11}$/", $phone)) {
         $phone_error = "phone number must contain 11 degits";
         $error = true;
@@ -132,7 +134,7 @@ if ($_SERVER['REQUEST_METHOD'] === "POST") {
             if (empty($confirm_new_password)) {
                 $confirm_new_password_error = "you have to confirm your password";
                 $error = true;
-            } elseif ($confirm_new_password != $new_password) {
+            } elseif ($confirm_new_password !== $new_password) {
                 $confirm_new_password_error = "password doesn't match";
                 $error = true;
             }
@@ -146,7 +148,7 @@ if ($_SERVER['REQUEST_METHOD'] === "POST") {
             //IF PASS INPUTS ARE NOT EMPTY AND PASSED VALIDATION AND FREE FROM ERRORS
             $hash_new_password = password_hash($new_password, PASSWORD_DEFAULT);
 
-            $sql = "UPDATE users SET firstname =? ,lastname=? ,email=? ,phone=? ,address=? ,password=? WHERE id= ? ";
+            $sql = "UPDATE users SET firstname =? ,lastname=? ,email=? ,phone=? ,address=? ,password=? ,role=? WHERE id= ? ";
             $stmt = $databaseconn->prepare($sql);
             $stmt->execute([
                 $firstname,
@@ -155,11 +157,12 @@ if ($_SERVER['REQUEST_METHOD'] === "POST") {
                 $phone,
                 $address,
                 $hash_new_password,
+                $role,
                 $id
             ]);
         } else {
             /////IF PASS FIELDS ARE EMPTY $change_password=false /////
-            $sql = "UPDATE users SET firstname =? ,lastname=? ,email=? ,phone=? ,address=? WHERE id= ? ";
+            $sql = "UPDATE users SET firstname =? ,lastname=? ,email=? ,phone=? ,address=? ,role=? WHERE id= ? ";
             $stmt = $databaseconn->prepare($sql);
             $stmt->execute([
                 $firstname,
@@ -167,10 +170,12 @@ if ($_SERVER['REQUEST_METHOD'] === "POST") {
                 $email,
                 $phone,
                 $address,
+                $role,
                 $id
             ]);
         }
 
+        //////////////////////// UPDATE SESSION DATA/////////////////////////////////
         if ($user_id === $_SESSION['id']) {
             $_SESSION["firstname"] = $firstname;
             $_SESSION["lastname"] = $lastname;
@@ -178,7 +183,9 @@ if ($_SERVER['REQUEST_METHOD'] === "POST") {
             $_SESSION["phone"] = $phone;
             $_SESSION["address"] = $address;
         }
-        $redirect_url = ($_SESSION['role'] === 'admin' && $id !== $_SESSION['id']) ? "profile.php?id=" . $id : "profile.php";
+        
+        //لما الادمن يعدل داتا كلاينت تانى نوجهه لبروفايل الكلاينت الاتعدل والعكس اذا الكلاينت عدل بياناته بنفسه او الادمن عدل بياناته شخصيا يتوجه لبروفايله فالسيشن الخاصه بتاعته
+        $redirect_url = ($_SESSION['role'] === 1 && $id !== $_SESSION['id']) ? "profile.php?id=" . $id : "profile.php";
         header("Location: " . $redirect_url);
         exit;
     }
@@ -243,6 +250,19 @@ include "layout/header.php";
                                 class="form-control"
                                 name="address" value="<?= $user_data["address"] ?>">
                         </div>
+
+                        <?php
+                        // this field will appear only if its an admin 
+                        if ($_SESSION["role"] === 1) {
+                        ?>
+                            <div class="mb-3">
+                                <label>
+                                    <input type="checkbox" name="role" value="1" <?= $user_data["role"] == 1 ? "checked" : ""  ?>>
+                                    admin
+                                </label>
+                            </div>
+                        <?php } ?>
+
                         <div class="mb-3">
                             <label class="form-label"> current Password*</label>
                             <input type="password"

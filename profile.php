@@ -9,8 +9,9 @@ if (!isset($_SESSION["email"])) {
 include "connection/config.php";
 $databaseconn = getconnectiontodb();
 
-if ($_SESSION['role'] === "admin" && isset($_GET['id'])) {
-    $user_id = $_GET['id'];
+if ($_SESSION['role'] === 1 && isset($_GET['id'])) {
+
+    $user_id = (int) $_GET['id'];
     $sql = "SELECT* FROM users WHERE id= ?";
     $stmt =  $databaseconn->prepare($sql);
     $stmt->execute([$user_id]);
@@ -67,7 +68,7 @@ include "layout/header.php";
 
             <div class="row mb-3">
                 <div class="col-sm-4 fs-5">role</div>
-                <div class="col-sm-8 fs-5"> <?= $user_data["role"] ?></div>
+                <div class="col-sm-8 fs-5"> <?= $user_data["role"] == 1 ? "admin" : "client" ?></div>
             </div>
 
             <div class="row mb-3">

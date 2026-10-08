@@ -2,7 +2,7 @@
 
 include "layout/session.php";
 
-if ($_SESSION['role'] !== "admin") {
+if ($_SESSION['role'] !== 1) {
     header("Location:index.php");
     exit;
 }
@@ -18,6 +18,7 @@ $lastname = "";
 $email = "";
 $phone = "";
 $address = "";
+$role = "";
 $password = "";
 $confirm_password = "";
 
@@ -48,6 +49,7 @@ if ($_SERVER["REQUEST_METHOD"] === 'POST') {
     $email = trim($_POST["email"] ?? "");
     $phone = trim($_POST["phone"] ?? "");
     $address = trim($_POST["address"] ?? "");
+    $role = isset($_POST["role"]) && $_POST["role"] == "1" ? 1 : 0;
     $password = trim($_POST["password"] ?? "");
     $confirm_password = trim($_POST["confirm_password"] ?? "");
 
@@ -101,7 +103,7 @@ if ($_SERVER["REQUEST_METHOD"] === 'POST') {
         $hash_password = password_hash($password, PASSWORD_DEFAULT);
         $created_at = date('Y-m-d H:i:s');
 
-        $sql = "INSERT INTO users(firstname , lastname ,email, phone, address, password,created_at) VALUES (?,?,?,?,?,?,?)";
+        $sql = "INSERT INTO users(firstname , lastname ,email, phone, address, password,role,created_at) VALUES (?,?,?,?,?,?,?,?)";
 
         $stmt = $databaseconn->prepare($sql);
 
@@ -112,6 +114,7 @@ if ($_SERVER["REQUEST_METHOD"] === 'POST') {
             $phone,
             $address,
             $hash_password,
+            $role,
             $created_at
         ]);
         header("Location:dashboard.php");
@@ -178,7 +181,12 @@ include "layout/header.php";
                             <span class="text-danger"></span>
                         </div>
 
-
+                        <div class="mb-3">
+                            <label>
+                                Admin
+                                <input type="checkbox" name="role" value="1">
+                            </label>
+                        </div>
 
                         <div class="mb-3">
                             <label class="form-label">Password*</label>
@@ -211,6 +219,7 @@ include "layout/header.php";
                             </div>
 
                         </div>
+
 
 
                     </form>

@@ -15,6 +15,7 @@ if (empty($_SESSION['csrf_token'])) {
 
 
 $email = "";
+$password="";
 $error = "";
 
 if ($_SERVER["REQUEST_METHOD"] === "POST") {

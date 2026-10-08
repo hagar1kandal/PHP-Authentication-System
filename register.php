@@ -8,7 +8,7 @@ if (isset($_SESSION["email"])) {
 }
 
 //************CSRF TOKENS TO PREVENT CSRF ATTAKS *******************//
-if (empty($_SESSION['csrf_token'])) {
+if (empty($_SESSION['csrf_token'])) { 
     $_SESSION['csrf_token'] = bin2hex(random_bytes(32));
 }
 
@@ -66,7 +66,7 @@ if ($_SERVER["REQUEST_METHOD"] === 'POST') {
 
     ////////////////////EMAIL VALIDATION//////////////////////////////////
     if (empty($email)) {
-        $email_error = "Email shuld be entered";
+        $email_error = "Email should be entered";
         $error = true;
     } elseif (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
         $email_error = "email should be in the right format";
@@ -80,7 +80,7 @@ if ($_SERVER["REQUEST_METHOD"] === 'POST') {
         $stmt->execute([$email]);
 
         if ($stmt->fetch()) {
-            $email_error = "this email is alredy existed";
+            $email_error = "this email is already existed";
             $error = true;
         }
     }
@@ -135,7 +135,7 @@ if ($_SERVER["REQUEST_METHOD"] === 'POST') {
 
             ///session values from db///                  
             if (password_verify($password, $row['password'])) {
-                $_SESSION["id"] = (int) $row['id'];  //store id in session from string to integer 
+                $_SESSION["id"] = (int) $row['id'];  //store id in session from string(PDO return string) to integer 
                 $_SESSION["firstname"] = $row['firstname'];
                 $_SESSION["lastname"] = $row['lastname'];
                 $_SESSION["email"] = $row['email'];
